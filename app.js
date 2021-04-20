@@ -1,5 +1,5 @@
 'use strict';
-let picArr=[];//picArr
+let imgArr=[];
 let findArr = [];
 let arrayData=[];
 
@@ -10,7 +10,7 @@ function ShowPhoto (images){
   this.keyword=images.keyword;
   this.horns=images.horns;
   findArr.push(this.keyword);
-  picArr.push(this);
+  imgArr.push(this);
 }
 
 //render function;
@@ -34,8 +34,8 @@ function getInfo(arr) {
 }
 
 
-function selected(){
-  $('select').append('<option value= "all" id= "option"> search by keywords</option>');
+function selection(){
+  $('select').append('<option value= "all" id= "option"> Keywords Search</option>');
 
   for (let i=0 ; i<arrayData.length;i++){
     let option = $('#option').clone();
@@ -49,38 +49,12 @@ function selected(){
   $('#select').on('change', function () {
     $('div').css({ 'display': 'none' });
 
-    $('.' + this.value).css({ 'display': 'inline-block' });
+    $(`.${this.value}`).css({ 'display': 'inline-block' });
   });
 }
 
 
-function sort1(arr) {
-  arr.sort((a, b) => {
-    if (a.title.toUpperCase() < b.title.toUpperCase()) {
-      return -1;
-    } else if (a.title.toUpperCase() > b.title.toUpperCase()) {
-      return 1;
-    }
-    return 0;
-  });
-  return arr;
-}
-
-function sort2(arr) {
-  arr.sort((a, b) => {
-    if (a.horns < b.horns) {
-      return -1;
-    } else if (a.horns > b.horns) {
-      return 1;
-    }
-    return 0;
-  });
-  return arr;
-}
-
-
-
-ShowPhoto.readJson1 = () => {
+ShowPhoto.getJson1 = () => {
   const ajaxSettings = {
     method: 'get',
     dataType: 'json'
@@ -88,19 +62,19 @@ ShowPhoto.readJson1 = () => {
 
   $.ajax('data/page-1.json', ajaxSettings).then((data) => {
 
-    sort1(data);
+
 
     data.forEach((element) => {
       let horn = new ShowPhoto (element);
       $('#Items').append(horn.renderObj());
     });
     getInfo(findArr);
-    selected();
+    selection();
   });
 
 };
 
-ShowPhoto.readJson2 = () => {
+ShowPhoto.getJson2 = () => {
   const ajaxSettings = {
     method: 'get',
     dataType: 'json'
@@ -108,28 +82,27 @@ ShowPhoto.readJson2 = () => {
 
   $.ajax('data/page-2.json', ajaxSettings).then((data) => {
 
-    sort2(data);
 
     data.forEach((element) => {
       let horn = new ShowPhoto(element);
       $('#Items').append(horn.renderObj());
     });
     getInfo(findArr);
-    selected();
+    selection();
   });
 
 };
 
-///////////
 
-$(() => ShowPhoto.readJson1());
+
+$(() => ShowPhoto.getJson1());
 
 function page1() {
   $('.all').remove();
   findArr = [];
   arrayData = [];
   $('option').remove();
-  ShowPhoto.readJson1();
+  ShowPhoto.getJson1();
 }
 
 function page2() {
@@ -137,5 +110,5 @@ function page2() {
   findArr= [];
   arrayData = [];
   $('option').remove();
-  ShowPhoto.readJson2();
+  ShowPhoto.getJson2();
 }
