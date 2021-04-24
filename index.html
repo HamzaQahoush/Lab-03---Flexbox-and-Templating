@@ -11,29 +11,50 @@
 
 <body>
   <header>
-    <h1>The Gallery of Horns</h1>
-    <nav>
-      <button id="Page1" onclick="page1()">Page 1</button>
-      <button id="Page2" onclick="page2()">Page 2</button>
-</nav>
+    <header>
+      <h1>The Gallery of Horns</h1>
+      
+    
+      <nav>
+        <button id="Page1" onclick="page1()">Page 1</button>
+        <button id="Page2" onclick="page2()">Page 2</button>
+  
+        
+      </nav>
+      <select id="select">keyword</select>
+      <button id="sort1" >Sort by Title</button>
+      <button id="sort2" >Sort by Horns</button>
 
-<select id="select">keyword</select>
-<button id="Page1" >Sort by Title</button>
-<button id="Page2">Sort by Horns</button>
+      
+  
+    </header>
 
 </header>
   
   <main >
-    <section id="Items">
+     
+    <section id="allItems">
       <template id="mustache-template" type="text/x-tmpl-mustache">
+          <!-- render part -->
         <div class="{{keyword}} all ">
           <h2>{{title}}</h2>
           <img src={{image_url}}>
           <p>{{description}}</p>
         </div>
+          <!-- render part -->
       </template>
     </section>
   </main>
+  <span>
+    <!-- sorting part -->
+    <div class="{{keyword}}">
+      <h2>{{title}}</h2>
+      <img src={{image_url}}>
+      <p>{{description}}</p>
+    </div>
+       <!-- sorting part -->
+  </span>
+
   <footer>
     &copy; 2021 Code Fellows
   </footer>
@@ -43,5 +64,3 @@
 </body>
 
 </html>
-
-
